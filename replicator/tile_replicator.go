@@ -14,14 +14,15 @@ import (
 )
 
 var metadataRegexp = regexp.MustCompile(`metadata\/.*\.yml$`)
-var supportedTiles = []string{"p-isolation-segment", "p-windows-runtime", "pas-windows"}
+var supportedTiles = []string{"p-isolation-segment", "p-windows-runtime", "pas-windows", "harbor-container-registry"}
 
 const (
-	istRouterJobType  = "isolated_router"
-	istCellJobType    = "isolated_diego_cell"
-	istHAProxyJobType = "isolated_ha_proxy"
+	istRouterJobType    = "isolated_router"
+	istCellJobType      = "isolated_diego_cell"
+	istHAProxyJobType   = "isolated_ha_proxy"
 
-	wrtCellJobType = "windows_diego_cell"
+	wrtCellJobType      = "windows_diego_cell"
+	hrbHarborAppJobType = "harbor-app"
 )
 
 type TileReplicator struct {
@@ -155,6 +156,12 @@ func (TileReplicator) replaceWRTProperties(metadata string, name string) string 
 	newDiegoCellName := fmt.Sprintf("%s_%s", wrtCellJobType, name)
 
 	return strings.Replace(metadata, "windows_diego_cell", newDiegoCellName, -1)
+}
+
+func (TileReplicator) replaceHRBProperties(metadata string, name string) string {
+	newHarborAppName := fmt.Sprintf("%s_%s", hrbHarborAppJobType, name)
+
+	return strings.Replace(metadata, "harbor-app", newHarborAppName, -1)
 }
 
 func (TileReplicator) replaceName(originalName string, config ApplicationConfig) (string, error) {

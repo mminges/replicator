@@ -28,3 +28,12 @@ There are a couple of constraints on tile names:
 
 1. the name may only contain alphanumeric characters, `-`, `_`, and spaces
 1. the name must be 10 characters or less
+
+## Building
+
+```bash
+go mod init
+go mod vendor
+GOOS=darwin go build -o replicator-darwin
+GOOS=linux go build -o replicator-linux
+```
