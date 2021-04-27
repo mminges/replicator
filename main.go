@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/pivotal-cf/replicator/replicator"
+	"github.com/mminges/replicator/replicator"
 )
 
 func main() {
